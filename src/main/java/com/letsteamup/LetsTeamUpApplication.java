@@ -19,6 +19,7 @@ public class LetsTeamUpApplication {
     private static Scanner scanner = new Scanner(System.in);
     private static MenuController menuController;
     private static BufferedWriter logWriter;
+    private static String userRole;
 
     public static void main(String[] args) {
         initializeLogger();
@@ -35,52 +36,90 @@ public class LetsTeamUpApplication {
         boolean running = true;
 
         while (running) {
-            displayMainMenu();
-            int choice = getMenuChoice(1, 7);
+            userRole = selectUserRole();
 
-            try {
-                switch (choice) {
-                    case 1:
-                        logMessage("User selected: Conduct Survey");
-                        menuController.conductSurvey();
-                        break;
-                    case 2:
-                        logMessage("User selected: Load Participants");
-                        menuController.loadParticipantsFromFile();
-                        break;
-                    case 3:
-                        logMessage("User selected: View Participants");
-                        menuController.viewParticipants();
-                        break;
-                    case 4:
-                        logMessage("User selected: Form Teams");
-                        menuController.formTeams();
-                        break;
-                    case 5:
-                        logMessage("User selected: View Teams");
-                        menuController.viewFormedTeams();
-                        break;
-                    case 6:
-                        logMessage("User selected: Export Teams");
-                        menuController.exportTeamsToFile();
-                        break;
-                    case 7:
-                        running = false;
-                        logMessage("Application exit requested");
-                        ConsoleUI.printSuccess("Thank you for using TeamMate!");
-                        break;
-                }
-            } catch (InvalidScoreException | FileProcessingException | InsufficientParticipantsException e) {
-                ConsoleUI.printError("Operation failed: " + e.getMessage());
-                logMessage("ERROR: " + e.getMessage());
-            } catch (Exception e) {
-                ConsoleUI.printError("Unexpected error: " + e.getMessage());
-                logMessage("CRITICAL ERROR: " + e.getMessage());
-                e.printStackTrace();
+            if (userRole.equals("EXIT")) {
+                running = false;
+                logMessage("Application exit requested from role selection");
+                ConsoleUI.printSuccess("Thank you for using TeamMate!");
+                break;
             }
 
-            if (running && choice != 7) {
-                ConsoleUI.pressEnterToContinue();
+            boolean inSession = true;
+
+            while (inSession) {
+                displayMainMenu(userRole);
+                int maxOption = userRole.equals("PARTICIPANT") ? 4 : 7;
+                int choice = getMenuChoice(1, maxOption);
+
+                try {
+                    if (userRole.equals("PARTICIPANT")) {
+                        switch (choice) {
+                            case 1:
+                                logMessage("Participant selected: Conduct Survey");
+                                menuController.conductSurvey();
+                                break;
+                            case 2:
+                                logMessage("Participant selected: View Participants");
+                                menuController.viewParticipants();
+                                break;
+                            case 3:
+                                inSession = false;
+                                logMessage("Participant returned to role selection");
+                                break;
+                            case 4:
+                                running = false;
+                                inSession = false;
+                                logMessage("Application exit requested by participant");
+                                ConsoleUI.printSuccess("Thank you for using TeamMate!");
+                                break;
+                        }
+                    } else {
+                        switch (choice) {
+                            case 1:
+                                logMessage("Management selected: Conduct Survey");
+                                menuController.conductSurvey();
+                                break;
+                            case 2:
+                                logMessage("Management selected: Load Participants");
+                                menuController.loadParticipantsFromFile();
+                                break;
+                            case 3:
+                                logMessage("Management selected: View Participants");
+                                menuController.viewParticipants();
+                                break;
+                            case 4:
+                                logMessage("Management selected: Form Teams");
+                                menuController.formTeams();
+                                break;
+                            case 5:
+                                logMessage("Management selected: View Teams");
+                                menuController.viewFormedTeams();
+                                break;
+                            case 6:
+                                logMessage("Management selected: Export Teams");
+                                menuController.exportTeamsToFile();
+                                break;
+                            case 7:
+                                running = false;
+                                inSession = false;
+                                logMessage("Application exit requested by management");
+                                ConsoleUI.printSuccess("Thank you for using TeamMate!");
+                                break;
+                        }
+                    }
+                } catch (InvalidScoreException | FileProcessingException | InsufficientParticipantsException e) {
+                    ConsoleUI.printError("Operation failed: " + e.getMessage());
+                    logMessage("ERROR: " + e.getMessage());
+                } catch (Exception e) {
+                    ConsoleUI.printError("Unexpected error: " + e.getMessage());
+                    logMessage("CRITICAL ERROR: " + e.getMessage());
+                    e.printStackTrace();
+                }
+
+                if (running && inSession) {
+                    ConsoleUI.pressEnterToContinue();
+                }
             }
         }
 
@@ -89,17 +128,50 @@ public class LetsTeamUpApplication {
         closeLogger();
     }
 
-    private static void displayMainMenu() {
+    private static String selectUserRole() {
         ConsoleUI.printSeparator();
-        System.out.println("MAIN MENU");
+        System.out.println("USER ROLE SELECTION");
         ConsoleUI.printSeparator();
-        System.out.println("1. Conduct Participant Survey");
-        System.out.println("2. Load Participants from CSV");
-        System.out.println("3. View All Participants");
-        System.out.println("4. Form Teams");
-        System.out.println("5. View Formed Teams");
-        System.out.println("6. Export Teams to CSV");
-        System.out.println("7. Exit");
+        System.out.println("1. Management");
+        System.out.println("2. Participant");
+        System.out.println("3. Exit");
+        ConsoleUI.printSeparator();
+
+        int choice = getMenuChoice(1, 3);
+
+        switch (choice) {
+            case 1:
+                logMessage("User selected Management role");
+                return "MANAGEMENT";
+            case 2:
+                logMessage("User selected Participant role");
+                return "PARTICIPANT";
+            case 3:
+                return "EXIT";
+            default:
+                return "EXIT";
+        }
+    }
+
+    private static void displayMainMenu(String role) {
+        ConsoleUI.printSeparator();
+        System.out.println("MAIN MENU - " + role);
+        ConsoleUI.printSeparator();
+
+        if (role.equals("PARTICIPANT")) {
+            System.out.println("1. Conduct Participant Survey");
+            System.out.println("2. View All Participants");
+            System.out.println("3. Return to Role Selection");
+            System.out.println("4. Exit");
+        } else {
+            System.out.println("1. Conduct Participant Survey");
+            System.out.println("2. Load Participants from CSV");
+            System.out.println("3. View All Participants");
+            System.out.println("4. Form Teams");
+            System.out.println("5. View Formed Teams");
+            System.out.println("6. Export Teams to CSV");
+            System.out.println("7. Exit");
+        }
         ConsoleUI.printSeparator();
     }
 
