@@ -19,6 +19,8 @@ public class MenuController {
     private TeamFormationService teamFormationService;
     private Scanner scanner;
 
+    // Constructor that injects the required services for menu operations,
+    // enabling loading data, conducting surveys, and forming teams.
     public MenuController(DataService dataService, SurveyService surveyService,
                           TeamFormationService teamFormationService) {
         this.dataService = dataService;
@@ -26,6 +28,9 @@ public class MenuController {
         this.teamFormationService = teamFormationService;
         this.scanner = new Scanner(System.in);
     }
+
+    // Handles the full survey workflow: collects survey responses for multiple participants,
+    // saves each entry and writes all participant data to allParticipants.csv.
 
     public void conductSurvey() throws InvalidScoreException {
         ConsoleUI.printHeader("Participant Survey");
@@ -51,7 +56,8 @@ public class MenuController {
             ConsoleUI.printWarning("Participants added but failed to save: " + e.getMessage());
         }
     }
-
+    // Loads participant data either automatically from default CSV files
+    // or from a custom path entered by the user, then displays the count loaded.
     public void loadParticipantsFromFile() throws FileProcessingException {
         ConsoleUI.printHeader("Load Participants from CSV");
 
@@ -71,7 +77,8 @@ public class MenuController {
 
         ConsoleUI.printSuccess("Loaded " + dataService.getParticipantCount() + " participants!");
     }
-
+    // Displays all loaded participants with full details; throws an exception
+    // if no participants exist to ensure data is available before viewing.
     public void viewParticipants() throws InsufficientParticipantsException {
         ConsoleUI.printHeader("All Participants");
 
@@ -94,7 +101,8 @@ public class MenuController {
             System.out.println();
         }
     }
-
+    // Forms teams using different algorithm options after validating participant count,
+    // ensuring equal team distribution and displaying performance/statistics after formation.
     public void formTeams() throws InsufficientParticipantsException {
         ConsoleUI.printHeader("Team Formation");
 
@@ -151,7 +159,8 @@ public class MenuController {
 
         displayTeamStatistics(teams);
     }
-
+    // Displays all previously formed teams with full team statistics and member details,
+    // and ensures teams exist before viewing by throwing an exception if none are formed.
     public void viewFormedTeams() throws InsufficientParticipantsException {
         ConsoleUI.printHeader("Formed Teams");
 
@@ -181,7 +190,8 @@ public class MenuController {
         }
         ConsoleUI.printSeparator();
     }
-
+    // Exports all previously formed teams to a CSV file, either using a default filename
+    // or a custom name provided by the user, ensuring teams exist before exporting.
     public void exportTeamsToFile() throws FileProcessingException, InsufficientParticipantsException {
         ConsoleUI.printHeader("Export Teams to CSV");
 
@@ -208,7 +218,8 @@ public class MenuController {
         dataService.exportTeamsToCSV(teams, filename);
         ConsoleUI.printSuccess("Teams exported successfully to src/main/resources/" + filename);
     }
-
+    // Displays detailed statistics for all formed teams, including averages and
+    // distributions of personality types, roles, and games for analysis insights.
     private void displayTeamStatistics(List<Team> teams) {
         ConsoleUI.printSeparator();
         System.out.println("TEAM FORMATION STATISTICS");
