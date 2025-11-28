@@ -32,7 +32,8 @@ public class SurveyService {
     public SurveyService() {
         this.scanner = new Scanner(System.in);
     }
-
+    // Conducts the full interactive survey flow for a single participant,
+    // collecting all inputs, validating them, and returning a Participant object.
     public Participant conductInteractiveSurvey() throws InvalidScoreException {
         try {
             String id = generateParticipantId();
@@ -60,7 +61,8 @@ public class SurveyService {
     private String generateParticipantId() {
         return "P" + String.format("%03d", new Random().nextInt(1000));
     }
-
+    // Continuously prompts the user for a valid participant name,
+    // validating input and retrying until a correct name is entered.
     private String getParticipantName() throws InvalidInputException {
         while (true) {
             System.out.print("Enter participant name: ");
@@ -73,12 +75,14 @@ public class SurveyService {
             }
         }
     }
-
+    // Retrieves the participant's age by prompting the user and ensuring
+    // the input falls within the valid range of 16 to 100.
     private int getParticipantAge() throws InvalidInputException {
         System.out.print("Enter age (16-100): ");
         return ConsoleUI.getIntInput(16, 100);
     }
-
+    // Prompts the user for a valid email address, validating the format
+    // and retrying until a correctly formatted email is entered.
     private String getParticipantEmail() throws InvalidInputException {
         while (true) {
             System.out.print("Enter email address: ");
@@ -91,7 +95,8 @@ public class SurveyService {
             }
         }
     }
-
+    // Conducts a multi-question personality assessment, collecting ratings,
+    // calculating a scaled score, and determining the participant’s personality type.
     private int conductPersonalityAssessment() {
         ConsoleUI.printSeparator();
         System.out.println("PERSONALITY ASSESSMENT");
@@ -114,14 +119,16 @@ public class SurveyService {
 
         return scaledScore;
     }
-
+    // Classifies a participant’s personality type based on their scaled score,
+    // returning one of the predefined categories such as Leader, Balanced, or Thinker.
     private String classifyPersonality(int score) {
         if (score >= 90) return "Leader";
         if (score >= 70) return "Balanced";
         if (score >= 50) return "Thinker";
         return "Unknown";
     }
-
+    // Displays a list of available games and prompts the user to select one,
+    // returning the chosen game after validating the input selection.
     private String selectGame() {
         ConsoleUI.printSeparator();
         System.out.println("GAME/SPORT SELECTION");
@@ -140,7 +147,8 @@ public class SurveyService {
 
         return selectedGame;
     }
-
+    // Presents a list of available roles for the participant to choose from,
+    // validating the input and returning the selected role.
     private String selectRole() {
         ConsoleUI.printSeparator();
         System.out.println("ROLE SELECTION");
@@ -159,7 +167,8 @@ public class SurveyService {
 
         return selectedRole;
     }
-
+    // Prompts the participant to rate their skill level from 1–10 and validates
+    // the input to ensure it falls within the defined experience range.
     private int getSkillLevel() {
         ConsoleUI.printSeparator();
         System.out.println("SKILL LEVEL ASSESSMENT");
