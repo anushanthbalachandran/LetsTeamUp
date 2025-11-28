@@ -20,7 +20,8 @@ public class LetsTeamUpApplication {
     private static MenuController menuController;
     private static BufferedWriter logWriter;
     private static String userRole;
-
+    // Entry point of the TeamMate application: initializes services, handles user role selection,
+    // and manages the main program loop for all participant and management operations.
     public static void main(String[] args) {
         initializeLogger();
 
@@ -127,7 +128,8 @@ public class LetsTeamUpApplication {
         menuController.cleanup();
         closeLogger();
     }
-
+    // Displays the role selection menu and returns the chosen user role,
+    // logging the selection and mapping input to Management, Participant, or Exit.
     private static String selectUserRole() {
         ConsoleUI.printSeparator();
         System.out.println("USER ROLE SELECTION");
@@ -152,7 +154,8 @@ public class LetsTeamUpApplication {
                 return "EXIT";
         }
     }
-
+    // Displays the main menu options based on the current user role,
+    // showing either participant actions or full management controls.
     private static void displayMainMenu(String role) {
         ConsoleUI.printSeparator();
         System.out.println("MAIN MENU - " + role);
@@ -174,7 +177,8 @@ public class LetsTeamUpApplication {
         }
         ConsoleUI.printSeparator();
     }
-
+    // Repeatedly prompts the user for a valid numeric menu choice within the given range,
+    // handling invalid input formats and out-of-range values until a correct choice is entered.
     private static int getMenuChoice(int min, int max) {
         while (true) {
             try {
@@ -189,7 +193,8 @@ public class LetsTeamUpApplication {
             }
         }
     }
-
+    // Initializes the application logger by creating the logs directory if needed,
+    // generating a timestamped log file, and preparing the writer for logging events.
     private static void initializeLogger() {
         try {
             String resourcesPath = "src/main/resources/logs";
@@ -208,6 +213,9 @@ public class LetsTeamUpApplication {
         }
     }
 
+    // Writes a timestamped message to the application log file, ensuring each entry
+    // is flushed immediately and handling any I/O issues safely.
+
     public static void logMessage(String message) {
         if (logWriter != null) {
             try {
@@ -220,7 +228,8 @@ public class LetsTeamUpApplication {
             }
         }
     }
-
+    // Closes the logger safely by writing a final termination entry and shutting down
+    // the log writer, handling any I/O errors during the cleanup process.
     private static void closeLogger() {
         if (logWriter != null) {
             try {
