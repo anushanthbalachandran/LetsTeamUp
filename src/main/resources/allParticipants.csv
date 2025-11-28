@@ -1,0 +1,3 @@
+ID,Name,Email,PreferredGame,SkillLevel,PreferredRole,PersonalityScore,PersonalityType
+P001,Alice,alice@test.com,Valorant,8,Strategist,95,Leader
+P002,Bob,bob@test.com,FIFA,7,Defender,75,Balanced
