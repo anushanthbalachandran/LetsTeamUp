@@ -297,7 +297,7 @@ public class TeamFormationService {
 
         return stats;
     }
-    // Safely shuts down the executor service by waiting for ongoing tasks to finish,
+    // Safely shuts down the executor service by waiting for ongoing tasks for finishing,
     // forcing termination if needed and handling interruptions gracefully.
     public void shutdown() {
         if (executorService != null && !executorService.isShutdown()) {
