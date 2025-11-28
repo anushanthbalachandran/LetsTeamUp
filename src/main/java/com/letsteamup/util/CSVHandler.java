@@ -12,7 +12,8 @@ import java.util.List;
 public class CSVHandler {
 
     private static final String COMMA_DELIMITER = ",";
-
+    // Reads participants from a CSV file, validating each row and collecting valid entries,
+    // while tracking errors and reporting the number of successfully loaded participants.
     public static List<Participant> readParticipantsFromCSV(String filename)
             throws FileProcessingException {
         List<Participant> participants = new ArrayList<>();
@@ -71,7 +72,8 @@ public class CSVHandler {
 
         return participants;
     }
-
+    // Parses a single CSV line into a Participant object by extracting fields,
+    // validating all values, and throwing detailed errors for invalid formats.
     private static Participant parseParticipantLine(String line) throws Exception {
         String[] values = line.split(COMMA_DELIMITER, -1);
 
@@ -107,7 +109,8 @@ public class CSVHandler {
             throw new IllegalArgumentException("Validation failed: " + e.getMessage());
         }
     }
-
+    // Writes the list of participants to a CSV file by creating directories if needed,
+    // formatting each record safely, and handling IO errors during export.
     public static void writeParticipantsToCSV(List<Participant> participants, String filename)
             throws FileProcessingException {
 
@@ -152,7 +155,8 @@ public class CSVHandler {
             closeQuietly(bw);
         }
     }
-
+    // Exports all teams and their members to a detailed CSV file, creating directories if needed
+    // and writing each team-member record with full attributes and proper formatting.
     public static void writeTeamsToCSV(List<Team> teams, String filename)
             throws FileProcessingException {
 
@@ -206,7 +210,8 @@ public class CSVHandler {
             closeQuietly(bw);
         }
     }
-
+    // Escapes CSV-sensitive characters by wrapping values in quotes and doubling
+    // internal quotation marks to ensure safe and valid CSV formatting.
     private static String escape(String value) {
         if (value == null) return "";
         if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
@@ -214,7 +219,8 @@ public class CSVHandler {
         }
         return value;
     }
-
+    // Safely closes a Closeable resource without interrupting program flow,
+    // logging any cleanup errors instead of throwing exceptions.
     private static void closeQuietly(Closeable closeable) {
         if (closeable != null) {
             try {
@@ -224,7 +230,8 @@ public class CSVHandler {
             }
         }
     }
-
+    // Checks whether the provided filename points to a valid, readable file,
+    // ensuring it exists, is a file (not a directory), and has read permissions.
     public static boolean validateFile(String filename) {
         File file = new File(filename);
         return file.exists() && file.isFile() && file.canRead();
