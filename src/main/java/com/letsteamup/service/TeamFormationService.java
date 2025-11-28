@@ -13,14 +13,16 @@ public class TeamFormationService {
 
     private List<Team> formedTeams;
     private ExecutorService executorService;
-
+    // Initializes the team formation service by setting up storage for formed teams
+    // and creating a thread pool optimized for parallel team-forming operations.
     public TeamFormationService() {
         this.formedTeams = new ArrayList<>();
         this.executorService = Executors.newFixedThreadPool(
                 Runtime.getRuntime().availableProcessors()
         );
     }
-
+    // Creates balanced teams by distributing participants to maximize diversity,
+    // validating inputs, forming each team, and returning the final team list.
     public List<Team> formBalancedTeams(List<Participant> participants, int teamSize)
             throws InsufficientParticipantsException {
 
@@ -42,7 +44,8 @@ public class TeamFormationService {
         LetsTeamUpApplication.logMessage("Successfully formed " + formedTeams.size() + " teams");
         return new ArrayList<>(formedTeams);
     }
-
+    // Builds a balanced team by prioritizing personality diversity, limiting leaders,
+    // and controlling game distribution before assigning members to the team.
     private Team createBalancedTeam(String teamId, List<Participant> available, int teamSize) {
         Team team = new Team(teamId, teamSize);
 
@@ -101,7 +104,8 @@ public class TeamFormationService {
 
         return team;
     }
-
+    // Forms teams by sorting participants by skill (highest to lowest) and distributing
+    // them in a zigzag pattern to keep teams balanced while respecting leader limits.
     public List<Team> formSkillBasedTeams(List<Participant> participants, int teamSize)
             throws InsufficientParticipantsException {
 
@@ -152,7 +156,8 @@ public class TeamFormationService {
 
         return new ArrayList<>(formedTeams);
     }
-
+    // Forms teams by grouping participants based on their preferred roles and distributing
+    // them evenly across teams, while ensuring no team exceeds leader limits.
     public List<Team> formRoleBasedTeams(List<Participant> participants, int teamSize)
             throws InsufficientParticipantsException {
 
@@ -207,7 +212,8 @@ public class TeamFormationService {
 
         return new ArrayList<>(formedTeams);
     }
-
+    // Validates team formation requirements by checking participant count, team size,
+    // and ensuring enough leaders exist to distribute across all teams.
     private void validateInput(List<Participant> participants, int teamSize)
             throws InsufficientParticipantsException {
 
@@ -240,7 +246,8 @@ public class TeamFormationService {
     public List<Team> getFormedTeams() {
         return new ArrayList<>(formedTeams);
     }
-
+    // Computes aggregated statistics for all formed teams, including averages and
+    // distributions of personality types, roles, games, skills, and team sizes.
     public Map<String, Object> calculateStatistics(List<Team> teams) {
         Map<String, Object> stats = new HashMap<>();
 
@@ -290,7 +297,8 @@ public class TeamFormationService {
 
         return stats;
     }
-
+    // Safely shuts down the executor service by waiting for ongoing tasks to finish,
+    // forcing termination if needed and handling interruptions gracefully.
     public void shutdown() {
         if (executorService != null && !executorService.isShutdown()) {
             executorService.shutdown();
