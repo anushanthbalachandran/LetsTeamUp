@@ -1,0 +1,11 @@
+[2025-11-28 20:10:07] Logger initialized at: C:\Users\anush\OneDrive\Desktop\LetsTeamUp\LetsTeamUp\src\main\resources\logs\application_20251128_201007.log
+[2025-11-28 20:10:07] Application started
+[2025-11-28 20:10:14] User selected Participant role
+[2025-11-28 20:10:25] Participant selected: Conduct Survey
+[2025-11-28 20:11:14] Survey completed for: thirusha (Score: 60)
+[2025-11-28 20:11:14] Participant added: P176 - thirusha
+[2025-11-28 20:11:14] Loaded 106 existing participants
+[2025-11-28 20:11:14] Saved 107 total participants to allParticipants.csv
+[2025-11-28 20:11:29] Participant selected: View Participants
+[2025-11-28 20:11:45] Application exit requested by participant
+[2025-11-28 20:11:45] Application terminated
