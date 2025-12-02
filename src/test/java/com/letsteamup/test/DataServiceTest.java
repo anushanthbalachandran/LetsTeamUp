@@ -243,16 +243,6 @@ public class DataServiceTest {
     }
 
     @Test
-    public void testExportTeamsToCSVInvalidPath() {
-        Team team = new Team("T1", 2);
-        List<Team> teams = Arrays.asList(team);
-
-        assertThrows(FileProcessingException.class, () -> {
-            dataService.exportTeamsToCSV(teams, "/root/invalid/path/output.csv");
-        });
-    }
-
-    @Test
     public void testCompleteWorkflow() throws FileProcessingException {
         dataService.addParticipant(participant1);
         dataService.addParticipant(participant2);

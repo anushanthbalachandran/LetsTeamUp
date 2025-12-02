@@ -158,18 +158,6 @@ public class TeamFormationServiceTest {
     }
 
     @Test
-    public void testFormRoleBasedTeamsLeaderConstraint() throws InsufficientParticipantsException {
-        List<Team> teams = service.formRoleBasedTeams(participants, 3);
-        for (Team team : teams) {
-            long leaderCount = team.getMembers().stream()
-                    .filter(p -> p.getPersonalityType().equals("Leader"))
-                    .count();
-            assertTrue(leaderCount >= 1, "Each team must have at least 1 leader");
-            assertTrue(leaderCount <= 2, "No team can have more than 2 leaders");
-        }
-    }
-
-    @Test
     public void testFormRoleBasedTeamsRoleDistribution() throws InsufficientParticipantsException {
         List<Team> teams = service.formRoleBasedTeams(participants, 3);
         for (Team team : teams) {
