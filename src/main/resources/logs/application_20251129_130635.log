@@ -1,0 +1,14 @@
+[2025-11-29 13:06:35] Logger initialized at: C:\Users\anush\OneDrive\Desktop\year2sem1\LetsTeamUp\LetsTeamUp\src\main\resources\logs\application_20251129_130635.log
+[2025-11-29 13:06:35] Application started
+[2025-11-29 13:06:38] User selected Participant role
+[2025-11-29 13:06:46] Participant returned to role selection
+[2025-11-29 13:08:49] User selected Participant role
+[2025-11-29 13:08:52] Participant selected: Conduct Survey
+[2025-11-29 13:10:02] Survey completed for: ankis (Score: 60)
+[2025-11-29 13:10:02] Participant added: P760 - ankis
+[2025-11-29 13:10:02] Loaded 107 existing participants
+[2025-11-29 13:10:02] Saved 107 total participants to allParticipants.csv
+[2025-11-29 13:10:19] Participant selected: View Participants
+[2025-11-29 13:10:42] Participant returned to role selection
+[2025-11-29 13:10:46] User selected Management role
+[2025-11-29 13:10:57] Management selected: View Participants

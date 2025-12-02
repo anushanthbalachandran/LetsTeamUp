@@ -1,0 +1,11 @@
+[2025-11-29 14:14:17] Logger initialized at: C:\Users\anush\OneDrive\Desktop\year2sem1\LetsTeamUp\LetsTeamUp\src\main\resources\logs\application_20251129_141417.log
+[2025-11-29 14:14:17] Application started
+[2025-11-29 14:14:22] User selected Management role
+[2025-11-29 14:14:28] Management selected: Conduct Survey
+[2025-11-29 14:15:21] Survey completed for: cobra (Score: 60)
+[2025-11-29 14:15:21] Participant added: P642 - cobra
+[2025-11-29 14:15:21] Loaded 107 existing participants
+[2025-11-29 14:15:21] Saved 108 total participants to allParticipants.csv
+[2025-11-29 19:12:21] Management selected: Export Teams
+[2025-11-29 19:12:21] ERROR: No teams formed yet. Please form teams first.
+[2025-11-29 19:12:31] Management selected: Form Teams
